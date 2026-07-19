@@ -11,7 +11,7 @@ RUN rm -f /usr/share/nginx/html/Dockerfile \
           /usr/share/nginx/html/nginx.conf \
           /usr/share/nginx/html/docker-compose.yml
 
-EXPOSE 80
+EXPOSE 80 3000
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s \
   CMD wget -q -O /dev/null http://localhost/ || exit 1
