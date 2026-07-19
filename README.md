@@ -80,7 +80,7 @@ css/fonts.css           self-hosted @font-face (Cormorant Garamond + Cairo)
 css/style.css           the whole look, background image + scrim
 js/rain.js              decorative canvas drizzle (pauses when hidden)
 js/app.js               audio, controls, media session, SW registration
-audio/rain.mp3          the loop  (audio/rain-soft.mp3 = gentler alternative)
+audio/thunderstorm.mp3  the audio (a 10-minute thunderstorm recording)
 assets/background.jpg   your background painting (add it yourself)
 fonts/                  woff2 files
 manifest.webmanifest    PWA manifest

@@ -10,7 +10,7 @@
 
   // One looping <audio> element — friendlier to background / lock-screen
   // playback than the Web Audio API (whose context gets suspended off-screen).
-  var audio = new Audio("audio/rain.mp3");
+  var audio = new Audio("audio/thunderstorm.mp3");
   audio.loop = true;
   audio.preload = "auto";
   audio.setAttribute("playsinline", "");
@@ -78,9 +78,9 @@
   if ("mediaSession" in navigator) {
     try {
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: "Rain to forget the heat",
-        artist: "matar",
-        album: "endless drizzle",
+        title: "Classic Thunderstorm",
+        artist: "matar · rain to forget the heat",
+        album: "endless storm",
         artwork: [
           { src: "icons/icon-192.png", sizes: "192x192", type: "image/png" },
           { src: "icons/icon-512.png", sizes: "512x512", type: "image/png" }

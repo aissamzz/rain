@@ -1,7 +1,7 @@
 /* Tiny offline cache so the rain is always one tap away, even with no signal. */
 "use strict";
 
-var CACHE = "matar-v3";
+var CACHE = "matar-v4";
 var ASSETS = [
   "./",
   "index.html",
@@ -9,7 +9,7 @@ var ASSETS = [
   "css/fonts.css",
   "js/rain.js",
   "js/app.js",
-  "audio/rain.mp3",
+  "audio/thunderstorm.mp3",
   "assets/background.jpg",
   "manifest.webmanifest",
   "favicon.svg",
@@ -48,9 +48,10 @@ self.addEventListener("fetch", function (event) {
   var req = event.request;
   if (req.method !== "GET") return;
 
-  // Range requests (audio seeking) — go to network, fall back to cache.
+  // Range requests (the audio element seeking/streaming). Serve the slice from
+  // the cached full file when possible so the 10-minute track plays offline.
   if (req.headers.has("range")) {
-    event.respondWith(fetch(req).catch(function () { return caches.match("audio/rain.mp3"); }));
+    event.respondWith(handleRange(req));
     return;
   }
 
@@ -69,3 +70,37 @@ self.addEventListener("fetch", function (event) {
     })
   );
 });
+
+// Answer a Range request from the cached full response (falling back to network).
+function handleRange(req) {
+  return caches.match(req).then(function (cached) {
+    if (cached) return sliceResponse(cached, req.headers.get("range"));
+    return fetch(req).catch(function () {
+      return caches.match(req).then(function (c) {
+        return c ? sliceResponse(c, req.headers.get("range")) : Response.error();
+      });
+    });
+  });
+}
+
+function sliceResponse(response, rangeHeader) {
+  return response.arrayBuffer().then(function (buf) {
+    var total = buf.byteLength;
+    var m = /bytes=(\d*)-(\d*)/.exec(rangeHeader || "");
+    var start = m && m[1] ? parseInt(m[1], 10) : 0;
+    var end = m && m[2] ? parseInt(m[2], 10) : total - 1;
+    if (isNaN(start) || start < 0) start = 0;
+    if (isNaN(end) || end >= total) end = total - 1;
+    if (start > end) { start = 0; end = total - 1; }
+    return new Response(buf.slice(start, end + 1), {
+      status: 206,
+      statusText: "Partial Content",
+      headers: {
+        "Content-Type": response.headers.get("Content-Type") || "audio/mpeg",
+        "Content-Range": "bytes " + start + "-" + end + "/" + total,
+        "Content-Length": String(end - start + 1),
+        "Accept-Ranges": "bytes"
+      }
+    });
+  });
+}
