@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>matar · rain to forget the heat</title>
+  <meta name="description" content="A single, endless rain — sound to cool an Algerian summer. Press play and forget the heat." />
+  <meta name="theme-color" content="#0a0e16" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <canvas id="rain-canvas" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <section class="poem" aria-label="A few words about the rain">
+      <p>Somewhere, it is raining.</p>
+      <p>Let it rain here too —<br />
+         over the white heat of the city,<br />
+         over streets that forgot how to cool.</p>
+      <p>Close your eyes.<br />
+         The summer can wait outside.</p>
+      <p class="poem__ar" lang="ar" dir="rtl">المطر يُطفئ الحَرّ</p>
+    </section>
+
+    <button id="toggle" class="play" type="button" aria-label="Play the rain" aria-pressed="false">
+      <span class="play__glow" aria-hidden="true"></span>
+      <svg class="play__icon play__icon--play" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8 5.5v13l11-6.5z" />
+      </svg>
+      <svg class="play__icon play__icon--pause" viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="7" y="5" width="3.4" height="14" rx="1" />
+        <rect x="13.6" y="5" width="3.4" height="14" rx="1" />
+      </svg>
+    </button>
+
+    <div class="volume">
+      <svg class="volume__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 9v6h4l5 4V5L8 9H4z" />
+        <path class="volume__wave" d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+      <input id="volume" class="volume__slider" type="range" min="0" max="100" value="70"
+             aria-label="Rain volume" />
+    </div>
+
+    <p class="hint" id="hint">press play — let it pour</p>
+  </main>
+
+  <script src="js/rain.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
