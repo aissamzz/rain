@@ -1,7 +1,7 @@
 /* Tiny offline cache so the rain is always one tap away, even with no signal. */
 "use strict";
 
-var CACHE = "matar-v2";
+var CACHE = "matar-v3";
 var ASSETS = [
   "./",
   "index.html",
@@ -10,6 +10,7 @@ var ASSETS = [
   "js/rain.js",
   "js/app.js",
   "audio/rain.mp3",
+  "assets/background.jpg",
   "manifest.webmanifest",
   "favicon.svg",
   "icons/favicon-32.png",
