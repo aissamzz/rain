@@ -1,11 +1,12 @@
 /* Tiny offline cache so the rain is always one tap away, even with no signal. */
 "use strict";
 
-var CACHE = "matar-v1";
+var CACHE = "matar-v2";
 var ASSETS = [
   "./",
   "index.html",
   "css/style.css",
+  "css/fonts.css",
   "js/rain.js",
   "js/app.js",
   "audio/rain.mp3",
@@ -15,7 +16,13 @@ var ASSETS = [
   "icons/apple-touch-icon.png",
   "icons/icon-192.png",
   "icons/icon-512.png",
-  "icons/icon-512-maskable.png"
+  "icons/icon-512-maskable.png",
+  "fonts/cormorant-garamond-latin-400-normal.woff2",
+  "fonts/cormorant-garamond-latin-400-italic.woff2",
+  "fonts/cormorant-garamond-latin-500-normal.woff2",
+  "fonts/cairo-arabic-300-normal.woff2",
+  "fonts/cairo-arabic-400-normal.woff2",
+  "fonts/cairo-arabic-600-normal.woff2"
 ];
 
 self.addEventListener("install", function (event) {

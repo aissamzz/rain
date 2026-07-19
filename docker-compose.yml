@@ -1,0 +1,9 @@
+services:
+  matar:
+    build: .
+    image: matar:latest
+    container_name: matar
+    restart: unless-stopped
+    ports:
+      # host:container — change 8080 to whatever your VPS/reverse proxy expects
+      - "8080:80"

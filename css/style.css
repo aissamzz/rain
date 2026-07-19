@@ -17,14 +17,39 @@ html, body {
 
 body {
   min-height: 100dvh;
-  background: radial-gradient(120% 120% at 50% -10%, var(--bg-top), var(--bg-bot));
+  background-color: var(--bg-bot);
   color: var(--ink);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: "Cormorant Garamond", ui-serif, Georgia, "Times New Roman", serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow: hidden;
   overscroll-behavior: none;
+}
+
+/* Background painting + fallback gradient */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(120% 120% at 50% -10%, var(--bg-top), var(--bg-bot)),
+    url("../assets/background.jpg") center / cover no-repeat;
+  background-blend-mode: normal;
+}
+/* Darkening scrim so the light text stays readable over the painting */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 9, 15, 0.55) 0%,
+    rgba(6, 9, 15, 0.42) 42%,
+    rgba(5, 8, 13, 0.68) 100%
+  );
 }
 
 #rain-canvas {
@@ -52,22 +77,27 @@ body {
 
 /* ---- poem ---- */
 .poem {
-  max-width: 30ch;
-  line-height: 1.9;
-  letter-spacing: 0.02em;
-  color: var(--ink);
-  font-size: clamp(0.98rem, 1rem + 0.4vw, 1.2rem);
-  opacity: 0.92;
+  max-width: min(34ch, 90vw);
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: #eaf1fb;
+  font-weight: 500;
+  font-size: clamp(1.35rem, 1.15rem + 1.1vw, 1.9rem);
+  opacity: 0.95;
+  text-shadow: 0 1px 16px rgba(4, 8, 14, 0.7), 0 0 2px rgba(4, 8, 14, 0.5);
   animation: fade-up 1.4s ease both;
 }
-.poem p { margin: 0 0 0.9em; }
+.poem p { margin: 0 0 0.7em; }
 .poem p:last-child { margin-bottom: 0; }
 .poem__ar {
-  margin-top: 1.4em;
-  color: var(--ink-dim);
-  font-size: 0.95em;
+  font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
+  font-weight: 300;
+  margin-top: 1.1em;
+  color: #cdd8e6;
+  font-size: 0.72em;
+  line-height: 1.9;
   letter-spacing: 0;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 /* ---- play button ---- */
@@ -185,11 +215,12 @@ body {
 .hint {
   margin: 0;
   min-height: 1em;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: lowercase;
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
   color: var(--ink-dim);
-  opacity: 0.7;
+  text-shadow: 0 1px 10px rgba(4, 8, 14, 0.6);
+  opacity: 0.8;
   transition: opacity 0.6s ease;
   animation: fade-up 1.4s ease 0.45s both;
 }
